@@ -4,6 +4,12 @@ class RecipesController < ApplicationController
     render json: @recipes.as_json
   end
 
+  def random
+    @recipe = Recipe.order("RANDOM()").limit(1).first
+    render json: @recipe.as_json
+  end
+  
+
   def show
     @recipe = Recipe.find_by(id: params[:id])
     render json: @recipe.as_json
