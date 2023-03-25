@@ -10,8 +10,8 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe.new(recipe_params)
-
+    @recipe = Recipe.new(recipe_params)
+    @recipe.save
     if @recipe.save
       render json: @recipe.as_json
     else
@@ -22,12 +22,12 @@ class RecipesController < ApplicationController
   def update
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
-    @recipe.save 
-    
+    @recipe.save
+
     if @recipe.save
       render json: @recipe.as_json
     else
-      render json: {errors: @recipe.errors.full_message}
+      render json: { errors: @recipe.errors.full_message }
     end
   end
 
@@ -35,16 +35,15 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.delete
     if @recipe.delete
-      render json: {message: "Recipe Sucessfully Deleted"}
+      render json: { message: "Recipe Sucessfully Deleted" }
     else
-      render json: {errors: @recipe.delete.errors.full_message}
+      render json: { errors: @recipe.delete.errors.full_message }
     end
-    
   end
 
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :difficulty, :time_to_cook, :prep_time, :ingredients, :yeild, :total_time, :chef)
+    params.require(:recipe).permit(:name, :description, :difficulty, :time_to_cook, :prep_time, :ingredients, :yield, :total_time, :chef, :category_id)
   end
 end
