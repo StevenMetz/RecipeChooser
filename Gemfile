@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec', '~> 3.12'
 end
 gem 'devise', '~> 4.9'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
