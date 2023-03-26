@@ -1,25 +1,24 @@
 class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
-    render json: @recipes.as_json
+    render :index
   end
 
   def random
     @recipe = Recipe.order("RANDOM()").limit(1).first
-    render json: @recipe.as_json
+    render :show
   end
-  
 
   def show
     @recipe = Recipe.find_by(id: params[:id])
-    render json: @recipe.as_json
+    render :show
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.save
     if @recipe.save
-      render json: @recipe.as_json
+      render :show
     else
       render json: { errors: @recipe.errors.full_message }
     end
@@ -31,7 +30,7 @@ class RecipesController < ApplicationController
     @recipe.save
 
     if @recipe.save
-      render json: @recipe.as_json
+      render :show
     else
       render json: { errors: @recipe.errors.full_message }
     end

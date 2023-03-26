@@ -1,10 +1,12 @@
 class CategoriesController < ApplicationController
   def index
     @categories = Category.all
+    render :index
   end
 
   def show
-    @category = Category.find(:id)
+    @category = Category.find(params[:id])
+    render :show
   end
 
   def create
@@ -12,7 +14,7 @@ class CategoriesController < ApplicationController
     @category.save
 
     if @category.save
-      render json: @category.as_json
+      render :show
     else
       render json: { errors: @category.errors.full_message }
     end
@@ -24,7 +26,7 @@ class CategoriesController < ApplicationController
     @category.save
 
     if @category.save
-      render json: @category.as_json
+      render :show
     else
       render json: { errors: @category.errors.full_message }
     end
